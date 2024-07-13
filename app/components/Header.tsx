@@ -26,7 +26,7 @@ export const HeaderNav = styled(Row)`
 		ul {
 			display: flex;
 			gap: 40px;
-			margin-left: 12px;
+			margin-right: 32px;
 		}
 	}
 `;

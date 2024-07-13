@@ -19,40 +19,30 @@ export const ExpertiseContainer = styled(Col)`
 	${containerCss}
 `;
 
-export const ExpertiseExperts = styled(Row)`
-	gap: 24px;
+export const ExpertiseExperts = styled.div`
 	margin-top: 32px;
-
-	flex-wrap: wrap;
 `;
 
 export const ExpertiseExpert = styled(Col)`
-	background-color: ${({ theme }) => theme.color.black_secondary};
-	background-repeat: no-repeat;
-	background-position: center;
-	background-size: cover;
+	background-color: ${({ theme }) => theme.color.white};
+	border: 1px solid ${({ theme }) => theme.color.grey_light_2};
 
-	padding: 16px;
 	border-radius: 32px;
 	flex: 1;
 	align-self: stretch;
 
-	height: 440px;
-
-	${mediaContainerCss}
+	${mediaContainerCss};
 `;
 
 export const ExpertiseExpertText = styled(Col)`
-	margin-top: auto;
-	padding: 16px;
+	padding: 24px;
 	gap: 6px;
-	border-radius: 24px;
 	border: 1px solid ${({ theme }) => theme.color.white + '50'};
-	background-color: ${({ theme }) => theme.color.white + '30'};
 `;
 
 export const ExpertiseExpertImg = styled.img`
 	width: 100%;
+	border-radius: 32px 32px 24px 24px;
 `;
 
 export const ExpertiseAwards = styled(Row)`

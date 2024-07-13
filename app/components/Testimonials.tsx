@@ -15,11 +15,8 @@ export const TestimonialsContainer = styled(Col)`
 	${containerCss}
 `;
 
-export const TestimonialItems = styled(Row)`
-	gap: 24px;
+export const TestimonialItems = styled.div`
 	margin-top: 32px;
-
-	flex-wrap: wrap;
 `;
 
 export const Testimonial = styled(Col)`
@@ -44,6 +41,7 @@ export const TestimonialTexts = styled(Row)`
 export const TestimonialImg = styled.img`
 	height: 40px;
 	width: 40px;
+	margin-bottom: 12px;
 `;
 
 export const TestimonialPersonImg = styled.img`

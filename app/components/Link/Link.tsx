@@ -13,13 +13,14 @@ export interface LinkProps
 	withIcon?: boolean;
 	size?: 'small' | 'standard';
 	children?: any;
+	style?: CSSProperties;
 }
 
-const Link: FC<LinkProps> = ({ children, size = 'standard', withIcon, href, target, rel, type, download, color, ...spacingCssProps }) => {
+const Link: FC<LinkProps> = ({ children, size = 'standard', withIcon, href, target, rel, type, download, color, style, ...spacingCssProps }) => {
 	const theme = useTheme();
 
 	return (
-		<StyledLink {...spacingCssProps} size={size} href={href} target={target} rel={rel} type={type} download={download} color={color}>
+		<StyledLink style={style} {...spacingCssProps} size={size} href={href} target={target} rel={rel} type={type} download={download} color={color}>
 			{children}
 
 			{!!withIcon && <Icon icon='arrow' height='16px' width='16px' fill={theme.color.black_secondary} />}

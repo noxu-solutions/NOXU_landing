@@ -28,16 +28,16 @@ export const Work = styled(Col)`
 	background-color: ${({ theme }) => theme.color.white};
 	border: 1px solid ${({ theme }) => theme.color.grey_light_2};
 	padding: 12px;
-	gap: 24px;
 	border-radius: 48px;
 	flex: 1;
 	align-self: stretch;
-	flex-direction: column-reverse;
+	flex-direction: column;
 
 	@media (min-width: ${({ theme }) => theme.breakpoint.mediumLargeMin}px) {
 		justify-content: space-between;
 		align-items: center;
 		flex-direction: row;
+		gap: 24px;
 	}
 `;
 

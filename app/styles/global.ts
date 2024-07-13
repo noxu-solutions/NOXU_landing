@@ -58,6 +58,7 @@ const CSS_RESET = css`
 	html {
 		margin: 0;
 		padding: 0;
+		scroll-behavior: smooth;
 	}
 
 	p {
@@ -170,6 +171,34 @@ const CSS_RESET = css`
 
 	.loader {
 		animation: loading 1.2s linear infinite;
+	}
+
+	#layout-preloader {
+		position: fixed;
+		width: 100%;
+		height: 100%;
+		background: #fff;
+		z-index: 9999;
+		transition: opacity 0.5s;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	#layout-preloader {
+		.loaded & {
+			opacity: 0;
+		}
+	}
+
+	::-webkit-scrollbar {
+		width: 8px;
+		height: 8px;
+		background-color: #f5f6f9;
+	}
+	::-webkit-scrollbar-thumb {
+		background-color: #f62727;
+		border-radius: 5px;
 	}
 
 	@keyframes loading {

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { SpacingCssProps, spacingCss } from '../Containers';
 import { LinkProps } from './Link';
 
-export const StyledLink = styled.button.attrs<SpacingCssProps>(({ theme, mbValue, mlValue, mtValue, mrValue }) => ({
+export const StyledLink = styled.a.attrs<SpacingCssProps>(({ theme, mbValue, mlValue, mtValue, mrValue }) => ({
 	mbValue: mbValue || theme.spacing.s,
 	mtValue: mtValue || theme.spacing.s,
 	mrValue: mrValue || theme.spacing.s,
@@ -18,8 +18,8 @@ export const StyledLink = styled.button.attrs<SpacingCssProps>(({ theme, mbValue
 
 	color: ${({ theme, color }) => (color ? theme.color?.[color] : theme.color.black_secondary)};
 
-	font-size: 14px;
-	line-height: 14px;
+	font-size: ${({ size }) => (size === 'standard' ? '16px' : '14px')};
+	line-height: ${({ size }) => (size === 'standard' ? '16px' : '14px')};
 
 	&:hover {
 		opacity: 0.7;

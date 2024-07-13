@@ -37,8 +37,14 @@ import Link from './components/Link/Link';
 import Input from './components/Input/Input';
 import { Pill } from './components/Pill/Pill.styles';
 import StaleInputFile from './components/StaleInputFile/StaleInputFile';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import Checkbox from './components/Checkbox/Checkbox';
+
+import Slider from 'react-slick';
+import { ArrowsContainer, StaleCarouselWrapper } from './styles/StaleCarousel.styles';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import SliderArrow from './components/SliderArrow/SliderArrow';
 
 const AWARDS = [
 	{
@@ -70,15 +76,31 @@ const TESTIMONIALS = [
 		text_2: 'Oleg Mogytych',
 		text_3: 'CTO at Neetly',
 		text_4: 'Stavanger, Norway',
-		img: './img/testimonial-image.svg',
+		img: './img/testimonial-1.png',
 	},
 	{
 		id: 2,
-		text: 'NOXU Solutions demonstrated good skills in professional work environments and collected the best information base. The team established operational and productive communication. They provided flexible terms of cooperation and their ability to launch a project on short notice was impressive.',
-		text_2: 'Oleg Mogytych',
-		text_3: 'CTO at Neetly',
-		text_4: 'Stavanger, Norway',
-		img: './img/testimonial-image.svg',
+		text: 'The board was happy with the platform, which met their expectations and was easy to edit and change. NOXU Solutions had a great communication process, managing the project seamlessly and with great care. Their services were also highly cost-effective. Overall, the engagement was highly successful.',
+		text_2: 'Michael Muyingo',
+		text_3: 'Startup Founder',
+		text_4: 'California, USA',
+		img: './img/testimonial-2.png',
+	},
+	{
+		id: 3,
+		text: `In just three months after launching the SaaS solution built by NOXU Solutions, the client gained 300 registered users in the test market. The app was robust, and users haven't encountered any bugs or issues. The team had extensive expertise in AWS that allowed them to recommend improvements.`,
+		text_2: 'NDA',
+		text_3: 'Chief Digital Officer',
+		text_4: 'Kyiv, Ukraine',
+		img: './img/testimonial-3.png',
+	},
+	{
+		id: 4,
+		text: 'Even during the hard times in Ukraine, NOXU committed - NOXU delivered. It was and still is a pleasure to work on the multiple initiatives that we have launched together. Separate kudos for always managing to find necessary people with specific knowledge quickly.',
+		text_2: 'Eugene Kozloff',
+		text_3: 'CEO at KofiTech',
+		text_4: 'Warsaw, Poland',
+		img: './img/testimonial-4.png',
 	},
 ];
 
@@ -116,9 +138,9 @@ const SERVICES = [
 	{
 		id: 4,
 		title: 'Design & Branding',
-		text: 'Get your vision off the ground efficiently and effectively. Our seasoned team of engineers, designers, analysts, and project managers collaborate together to bring your project from 0 to 1. Leave all the technical stuff for us to handle.',
+		text: 'Elevate your brand with our expert UX/UI design and branding services. From stunning logos to cohesive visual identities, we ensure your brand stands out. Our specialists create user-friendly designs that enhance customer experiences and drive engagement.',
 		img: './img/service-icon4.svg',
-		info: ['Brand strategy', 'Visual identity', 'Market analysis ', 'Scalable to your needs'],
+		info: ['Brand strategy', 'Visual identity', 'Market analysis ', 'UX | UI'],
 		border: 'light_purple',
 		color: 'light_purple_2',
 		checkmarkIco: 'checkmark-purple',
@@ -142,7 +164,7 @@ const WORKS = [
 	{
 		id: 2,
 		title: 'CRM for Moving Company',
-		text: `Boost your productivity by effortlessly integrating our skilled professionals into your team. Access top-tier talent to accelerate development, enhance code organization, elevate product's quality.`,
+		text: `CRM system for the internal needs of a moving company based in New Jersey, USA. Our custom solution according to our client’s requirements combines 3 core features from different platforms which are: managing requests, logistics and workload. `,
 		img: './img/CRM for Moving Company.jpg',
 		info: ['./img/react.svg', './img/node.svg', './img/aws.svg', './img/java.svg'],
 		country: 'USA',
@@ -155,7 +177,7 @@ const WORKS = [
 	{
 		id: 3,
 		title: 'KoFi Start',
-		text: 'Looking to validate your product idea quickly? The PoC & Discovery process helps to confirm "doability" of the concept, identify risks early on, and provide something feasible to your stakeholders fast —all while saving you time and costs.',
+		text: 'This platform was completely developed from scratch allowing its business owners to offer seamless purchase and sale of cryptocurrencies for individual and institutional clients across the EU. It includes transaction processing and support for multiple cryptocurrencies.',
 		img: './img/KoFi Start.jpg',
 		info: ['./img/react.svg', './img/node.svg', './img/aws.svg', './img/mongo.svg'],
 		country: 'Poland',
@@ -185,7 +207,7 @@ const ENTERPRISE_AWARDS = [
 	},
 	{
 		id: 4,
-		text: 'Customer Retentiont',
+		text: 'Customer Retention',
 		title: '87%',
 	},
 ];
@@ -193,32 +215,46 @@ const ENTERPRISE_AWARDS = [
 const ENTERPRISE_EXPERTS = [
 	{
 		id: 1,
-		title: 'Alisa Hester',
+		title: 'Nikita Rykov',
 		text: 'Founder & CEO',
-		text_2: 'Former co-founder of Opendoor. Early staff at Spotify and Clearbit.',
-		img: './img/CRM for Moving Company.jpg',
+		text_2: 'Former Delivery Manager. Dedicated to fostering innovation and client success.',
+		img: './img/Team card-5.jpg',
 	},
 	{
 		id: 2,
-		title: 'Alisa Hester',
-		text: 'Founder & CEO',
-		text_2: 'Former co-founder of Opendoor. Early staff at Spotify and Clearbit.',
-		img: './img/CRM for Moving Company.jpg',
+		title: 'Alex Ostapiuk',
+		text: 'Chief Solutions Architect',
+		text_2: 'Architecting robust solutions with over a decade of industry experience.',
+		img: 'img/Team card-1.png',
 	},
 	{
 		id: 3,
-		title: 'Alisa Hester',
-		text: 'Founder & CEO',
-		text_2: 'Former co-founder of Opendoor. Early staff at Spotify and Clearbit.',
-		img: './img/CRM for Moving Company.jpg',
+		title: 'Artem Onufriichuk',
+		text: 'Senior Delivery Lead',
+		text_2: 'Expert in delivering complex projects on time and within budget. Front-End Tech Lead.',
+		img: '/img/Team card-4.png',
 	},
 	{
 		id: 4,
-		title: 'Alisa Hester',
-		text: 'Founder & CEO',
-		text_2: 'Former co-founder of Opendoor. Early staff at Spotify and Clearbit.',
-		img: './img/CRM for Moving Company.jpg',
+		title: 'Andrew Statsenko',
+		text: 'CTO & Client Success Lead',
+		text_2: 'Driving technical excellence and ensuring client success with innovative strategies.',
+		img: '/img/Team card-3.png',
 	},
+	{
+		id: 5,
+		title: 'Artem Kizenko',
+		text: 'Client Success Lead (Benelux)',
+		text_2: 'Strengthening client relationships with strategic insights and exceptional service.',
+		img: '/img/Team card-2.png',
+	},
+	// {
+	// 	id: 6,
+	// 	title: 'Anastasiia Piskun',
+	// 	text: 'Creative Design Lead',
+	// 	text_2: 'Transforming ideas into stunning designs that drive user engagement.',
+	// 	img: '/img/LumFlow.jpg',
+	// },
 ];
 
 const VALUES = [
@@ -253,7 +289,7 @@ const LOCATIONS = [
 		id: 1,
 		title: 'USA, San Mateo',
 		text: '1600 E 3rd Ave, 94401',
-		text_2: 'Phone: +1 408 483 5535',
+		text_2: 'Phone: +1 650 270 4188',
 		img: './img/location-usa.svg',
 		flag: './img/USA.svg',
 	},
@@ -279,6 +315,55 @@ const Page = () => {
 	const [file, setFile] = useState<any>();
 	const [isLoading, setIsLoading] = useState(false);
 	const [checkboxValue, setCheckboxValue] = useState(false);
+	const testimonialsSlider = useRef(null);
+	const expertiseSlider = useRef(null);
+
+	const testimonialsSettings = {
+		dots: true,
+		arrows: false,
+		infinite: true,
+		speed: 500,
+		slidesToShow: 2,
+		slidesToScroll: 1,
+		responsive: [
+			{
+				breakpoint: 768,
+				settings: {
+					slidesToShow: 1,
+				},
+			},
+		],
+	};
+
+	const expertiseSettings = {
+		dots: false,
+		arrows: false,
+		infinite: true,
+		speed: 500,
+		slidesToShow: 4,
+		slidesToScroll: 1,
+		responsive: [
+			{
+				breakpoint: 1024,
+				settings: {
+					slidesToShow: 3,
+				},
+			},
+			{
+				breakpoint: 824,
+				settings: {
+					slidesToShow: 2,
+				},
+			},
+			{
+				breakpoint: 768,
+				settings: {
+					dots: true,
+					slidesToShow: 1,
+				},
+			},
+		],
+	};
 
 	return (
 		<>
@@ -286,26 +371,28 @@ const Page = () => {
 				<HeaderContainer>
 					<Row>
 						<HeaderLogo src='./img/logo.svg' alt='NOXU Solutions' />
+					</Row>
+					<Row>
 						<HeaderNav as='nav'>
 							<ul>
 								<li>
-									<a href='#'>Testimonials</a>
+									<Link href='/#testimonials'>Testimonials</Link>
 								</li>
 								<li>
-									<a href='#'>Services</a>
+									<Link href='/#services'>Services</Link>
 								</li>
 								<li>
-									<a href='#'>About Us</a>
+									<Link href='/#cases-studies'>Cases Studies</Link>
 								</li>
 								<li>
-									<a href='#'>Cases Studies</a>
+									<Link href='/#our-team'>Our team</Link>
 								</li>
 							</ul>
 						</HeaderNav>
+						<Button size='small' withIcon>
+							Contact Us
+						</Button>
 					</Row>
-					<Button size='small' withIcon>
-						Contact Us
-					</Button>
 				</HeaderContainer>
 			</Header>
 
@@ -319,9 +406,11 @@ const Page = () => {
 							<Subtitle maxWidth='500px'>
 								Full-cycle custom software development company. Focus on your business - our dedicated teams will do the rest.
 							</Subtitle>
-							<Button withIcon mt mtValue='32px'>
-								Schedule a call
-							</Button>
+							<Row>
+								<Button withIcon mt mtValue='32px'>
+									Schedule a call
+								</Button>
+							</Row>
 						</HeroInfo>
 						<HeroBigImg src='./img/hero-image.png' alt='Hero Image' />
 					</HeroTexts>
@@ -335,39 +424,65 @@ const Page = () => {
 								<Paragraph variant='bold' textAlign='center' maxWidth={item.id === 2 || item.id === 4 ? '120px' : '220px'}>
 									{item.text}
 								</Paragraph>
+
+								{item.id === 2 && (
+									<Link
+										size='small'
+										withIcon
+										target='_blank'
+										rel='nofollow'
+										href='https://clutch.co/profile/noxu-solutions?_gl=1*1x48a5p*_gcl_au*MjA2NTYyOTg5NC4xNzE1MjQyNTAy*FPAU*MjA2NTYyOTg5NC4xNzE1MjQyNTAy*_ga*MTk5NDQxMDM2Ni4xNzE1MjQyNTAy*_ga_D0WFGX8X3V*MTcyMDI2Nzc4OS41LjEuMTcyMDI2Nzc5Ny41Mi4wLjIwMzkyNzI0MjU.#highlights'>
+										Leave a review
+									</Link>
+								)}
 							</HeroAward>
 						))}
 					</HeroAwards>
 				</HeroContainer>
 			</Hero>
 
-			<Testimonials as='section'>
+			<Testimonials as='section' id='testimonials'>
 				<TestimonialsContainer>
-					<Pill>Testimonials</Pill>
-					<Title variant='h2'>From Concept to Completion</Title>
-					<TestimonialItems>
-						{TESTIMONIALS.map((item) => (
-							<Testimonial key={item.id}>
-								<TestimonialImg src='./img/testimonial-image.svg' alt='Testimonial Image' />
-								<Paragraph>{item.text}</Paragraph>
+					<Row>
+						<Col>
+							<Pill>Testimonials</Pill>
+							<Title variant='h2'>From Concept to Completion</Title>
+						</Col>
 
-								<TestimonialTexts>
-									<TestimonialPersonImg src={item.img} alt={item.text_2} />
-									<Col>
-										<Title variant='h4' mb mbValue='6px'>
-											{item.text_2}
-										</Title>
-										<Paragraph variant='bold'>{item.text_3}</Paragraph>
-										<Paragraph>{item.text_4}</Paragraph>
-									</Col>
-								</TestimonialTexts>
-							</Testimonial>
-						))}
+						<ArrowsContainer>
+							{/* @ts-ignore */}
+							<SliderArrow variant='prev' onClick={() => testimonialsSlider?.current?.slickPrev()} />
+							{/* @ts-ignore */}
+							<SliderArrow variant='next' onClick={() => testimonialsSlider?.current?.slickNext()} />
+						</ArrowsContainer>
+					</Row>
+					<TestimonialItems>
+						<StaleCarouselWrapper>
+							<Slider ref={testimonialsSlider} {...testimonialsSettings}>
+								{TESTIMONIALS.map((item) => (
+									<Testimonial key={item.id}>
+										<TestimonialImg src='./img/testimonial-image.svg' alt='Testimonial Image' />
+										<Paragraph>{item.text}</Paragraph>
+
+										<TestimonialTexts>
+											<TestimonialPersonImg src={item.img} alt={item.text_2} />
+											<Col>
+												<Title variant='h4' mb mbValue='6px'>
+													{item.text_2}
+												</Title>
+												<Paragraph variant='bold'>{item.text_3}</Paragraph>
+												<Paragraph>{item.text_4}</Paragraph>
+											</Col>
+										</TestimonialTexts>
+									</Testimonial>
+								))}
+							</Slider>
+						</StaleCarouselWrapper>
 					</TestimonialItems>
 				</TestimonialsContainer>
 			</Testimonials>
 
-			<Services as='section'>
+			<Services as='section' id='services'>
 				<ServicesContainer>
 					<Title variant='h2'>Explore our services</Title>
 					<ServiceItems>
@@ -399,7 +514,7 @@ const Page = () => {
 				</ServicesContainer>
 			</Services>
 
-			<Works as='section'>
+			<Works as='section' id='cases-studies'>
 				<WorksContainer>
 					<Pill>Case studies</Pill>
 					<Title variant='h2' textAlign='center' maxWidth='630px'>
@@ -449,24 +564,37 @@ const Page = () => {
 				</WorksContainer>
 			</Works>
 
-			<Expertise>
+			<Expertise id='our-team'>
 				<ExpertiseContainer>
-					<Pill>Our team</Pill>
-					<Title variant='h2'>Specialist Expertise</Title>
+					<Row>
+						<Col>
+							<Pill>Our team</Pill>
+							<Title variant='h2'>Specialist Expertise</Title>
+						</Col>
+
+						<ArrowsContainer>
+							{/* @ts-ignore */}
+							<SliderArrow variant='prev' onClick={() => expertiseSlider?.current?.slickPrev()} />
+							{/* @ts-ignore */}
+							<SliderArrow variant='next' onClick={() => expertiseSlider?.current?.slickNext()} />
+						</ArrowsContainer>
+					</Row>
+
 					<ExpertiseExperts as='section'>
-						{ENTERPRISE_EXPERTS.map((item) => (
-							<ExpertiseExpert key={item.id} style={{ backgroundImage: `url(${item.img})` }}>
-								<ExpertiseExpertText>
-									<Title variant='h3' color='white'>
-										{item.title}
-									</Title>
-									<Paragraph variant='bold' color='white'>
-										{item.text}
-									</Paragraph>
-									<Paragraph color='white'>{item.text_2}</Paragraph>
-								</ExpertiseExpertText>
-							</ExpertiseExpert>
-						))}
+						<StaleCarouselWrapper>
+							<Slider ref={expertiseSlider} {...expertiseSettings}>
+								{ENTERPRISE_EXPERTS.map((item) => (
+									<ExpertiseExpert key={item.id}>
+										<ExpertiseExpertImg src={item.img} alt={item.title} />
+										<ExpertiseExpertText>
+											<Title variant='h3'>{item.title}</Title>
+											<Paragraph variant='bold'>{item.text}</Paragraph>
+											<Paragraph color='grey_light_3'>{item.text_2}</Paragraph>
+										</ExpertiseExpertText>
+									</ExpertiseExpert>
+								))}
+							</Slider>
+						</StaleCarouselWrapper>
 					</ExpertiseExperts>
 					<ExpertiseAwards as='section'>
 						{ENTERPRISE_AWARDS.map((item) => (
@@ -559,7 +687,12 @@ const Page = () => {
 							</CTAInputs>
 
 							<Button>Send message</Button>
-							<Paragraph mt>By submitting this form you agree to NOXU Solution{`'`}s Privacy Policy</Paragraph>
+							<Row mt justifyContent='flex-start' flexWrap='wrap' gap='6px'>
+								<Paragraph>By submitting this form you agree to NOXU Solutions</Paragraph>
+								<Link href='#' style={{ width: 'fit-content' }} display='inline' color='red'>
+									Privacy Policy
+								</Link>
+							</Row>
 						</CTAForm>
 						<CTAInfo>
 							<CTAImg src='./img/form-bg.png' alt='CTA Image' />
@@ -592,13 +725,7 @@ const Page = () => {
 									<Icon icon='medium' />
 								</Link>
 								<Link href='#'>
-									<Icon icon='ball' />
-								</Link>
-								<Link href='#'>
 									<Icon icon='instagram' />
-								</Link>
-								<Link href='#'>
-									<Icon icon='facebook' />
 								</Link>
 								<Link href='#'>
 									<Icon icon='linkedin' />
@@ -610,16 +737,16 @@ const Page = () => {
 						</Row>
 
 						<FooterLinksWrapper>
-							<Paragraph color='white'>NOXU Solutions 2020-2024. All rights reserved.</Paragraph>
+							<Paragraph color='grey_light_3'>NOXU Solutions 2020-2024. All rights reserved.</Paragraph>
 
 							<FooterLinks>
-								<Link href='#' color='white'>
+								<Link href='#' color='grey_light_3'>
 									Cookie Policy
 								</Link>
-								<Link href='#' color='white'>
+								<Link href='#' color='grey_light_3'>
 									Privacy Policy
 								</Link>
-								<Link href='#' color='white'>
+								<Link href='#' color='grey_light_3'>
 									Terms & Conditions
 								</Link>
 							</FooterLinks>

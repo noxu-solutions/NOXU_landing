@@ -54,6 +54,12 @@ export const HeroAward = styled(Col)`
 	align-self: stretch;
 	align-items: center;
 	text-align: center;
+	transition: ${({ theme }) => theme.transition};
+	border: 2px solid ${({ theme }) => theme.color.transparent};
+
+	&:hover {
+		border: 2px solid ${({ theme }) => theme.color.grey_light_2};
+	}
 
 	${mediaContainerCss}
 `;
