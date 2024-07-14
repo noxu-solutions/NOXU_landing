@@ -1,4 +1,3 @@
-import GoogleAnalytics from 'components/GoogleAnalytics';
 import { Html, Head, Main, NextScript } from 'next/document';
 
 const Document = () => {
@@ -13,9 +12,7 @@ const Document = () => {
 			</Head>
 			<body>
 				<Main />
-				<NextScript>
-					<GoogleAnalytics />
-				</NextScript>
+				<NextScript />
 			</body>
 		</Html>
 	);

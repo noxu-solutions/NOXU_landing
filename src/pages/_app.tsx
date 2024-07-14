@@ -8,6 +8,7 @@ import Sprite from 'components/Sprite/Sprite';
 import Preloader from 'components/Preloader/Preloader';
 import Head from 'next/head';
 import Favicon from '/public/favicon.ico';
+import GoogleAnalytics from 'components/GoogleAnalytics';
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
 	useBootstrap();
@@ -23,6 +24,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 					name='description'
 					content='At NOXU Solutions, we specialize in full-cycle custom software development. From ideation to launch, our expert team provides tailored solutions in product development, UX/UI design, and branding to elevate your business. Partner with us to transform your ideas into exceptional digital products and ensure your success in the competitive tech landscape..'
 				/>
+				<GoogleAnalytics />
 			</Head>
 			<ThemeProvider theme={defaultTheme}>
 				<Sprite />
