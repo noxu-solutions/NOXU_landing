@@ -71,15 +71,6 @@ export const WorkSpecsRow = styled(Row)`
 	}
 `;
 
-export const WorkImg = styled.img`
-	width: 100%;
-	border-radius: 36px;
-
-	@media (min-width: ${({ theme }) => theme.breakpoint.mediumLargeMin}px) {
-		width: 48%;
-	}
-`;
-
 export const WorkStack = styled(Row)`
 	justify-content: flex-start;
 	gap: 8px;
