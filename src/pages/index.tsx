@@ -21,7 +21,16 @@ import { ArrowsContainer, StaleCarouselWrapper } from '../components/StaleCarous
 import { Header, HeaderContainer, HeaderLogo, HeaderNav } from '../components/Header';
 import { Value, ValueImg, ValueItems, Values, ValuesContainer } from '../components/Values';
 import { Location, LocationContainer, LocationFlagImg, LocationImg, LocationItems, Locations } from '../components/Locations';
-import { Footer, FooterContainer, FooterLinks, FooterLinksWrapper, FooterLogo, FooterNav, FooterSocialLinks } from '../components/Footer';
+import {
+	Footer,
+	FooterContainer,
+	FooterLinks,
+	FooterLinksWrapper,
+	FooterLogo,
+	FooterNav,
+	FooterSocialLinks,
+	FooterSocialLinksWrapper,
+} from '../components/Footer';
 import { Hero, HeroAward, HeroAwards, HeroBigImg, HeroButtonWrapper, HeroContainer, HeroImg, HeroInfo, HeroTexts } from '../components/Hero';
 import { CTA, CTAContainer, CTAForm, CTAFormWrapper, CTAImg, CTAInfo, CTAInfoItem, CTAInputs, CTAListItem, CTANameInputs } from '../components/CTA';
 import { Service, ServiceImg, ServiceInfoItem, ServiceInfoItems, ServiceItems, ServiceTexts, Services, ServicesContainer } from '../components/Services';
@@ -225,7 +234,7 @@ const Index = () => {
 					<WorkItems>
 						{WORKS.map((item) => (
 							<Work key={item.id}>
-								<RiveAnimation src={item.img} />
+								<RiveAnimation src={item.img} color={item.color} />
 
 								<WorkTexts>
 									<Title variant='h2'>{item.title}</Title>
@@ -415,23 +424,23 @@ const Index = () => {
 			<Footer as='footer'>
 				<FooterContainer>
 					<FooterNav>
-						<Row>
+						<FooterSocialLinksWrapper>
 							<FooterLogo src='./img/logo_light.svg' alt='NOXU Solutions' />
 							<FooterSocialLinks>
-								<Link href='#'>
+								<Link target='_blank' rel='nofollow' href='https://medium.com/@asknoxusolutions'>
 									<Icon icon='medium' />
 								</Link>
-								<Link href='#'>
+								<Link target='_blank' rel='nofollow' href='https://www.instagram.com/noxusolutions/'>
 									<Icon icon='instagram' />
 								</Link>
-								<Link href='#'>
+								<Link target='_blank' rel='nofollow' href='https://www.linkedin.com/company/noxu-solutions-ltd/about/?viewAsMember=true'>
 									<Icon icon='linkedin' />
 								</Link>
-								<Link href='#'>
+								<Link target='_blank' rel='nofollow' href='#'>
 									<Icon icon='behance' />
 								</Link>
 							</FooterSocialLinks>
-						</Row>
+						</FooterSocialLinksWrapper>
 
 						<FooterLinksWrapper>
 							<Paragraph color='grey_light_3'>NOXU Solutions 2020-2024. All rights reserved.</Paragraph>

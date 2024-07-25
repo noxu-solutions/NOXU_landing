@@ -159,12 +159,13 @@ export const WORKS = [
 		service: 'Branding + PoC + MVP Development',
 		team: 'Brand Designer, UX/UI Designer, Business Analyst, Project Manager, 2 Software Engineers, QA Engineer',
 		timeline: '5 months',
+		color: 'purple',
 	},
 	{
 		id: 2,
 		title: 'CRM for Moving Company',
 		text: `CRM system for the internal needs of a moving company based in New Jersey, USA. Our custom solution according to our client’s requirements combines 3 core features from different platforms which are: managing requests, logistics and workload. `,
-		img: './img/CRM for Moving Company.jpg',
+		img: './animations/MagicMove.riv',
 		info: ['./img/react.svg', './img/node.svg', './img/aws.svg', './img/java.svg'],
 		country: 'USA',
 		flag: './img/USA.svg',
@@ -172,12 +173,13 @@ export const WORKS = [
 		service: 'Product Development',
 		team: 'Project Manager, Application Architect, 3 Software Engineers, QA Engineer',
 		timeline: '10 months',
+		color: 'green',
 	},
 	{
 		id: 3,
 		title: 'KoFi Start',
 		text: 'This platform was completely developed from scratch allowing its business owners to offer seamless purchase and sale of cryptocurrencies for individual and institutional clients across the EU. It includes transaction processing and support for multiple cryptocurrencies.',
-		img: './img/KoFi Start.jpg',
+		img: './animations/KoFi.riv',
 		info: ['./img/react.svg', './img/node.svg', './img/aws.svg', './img/mongo.svg'],
 		country: 'Poland',
 		flag: './img/PL.svg',
@@ -185,6 +187,7 @@ export const WORKS = [
 		service: 'Product Development',
 		team: 'Project Manager, Application Architect, 4 Software Engineers, QA Engineer',
 		timeline: 'October 2021 - Ongoing',
+		color: 'blue',
 	},
 ];
 

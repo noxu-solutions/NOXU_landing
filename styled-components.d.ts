@@ -39,6 +39,9 @@ declare module 'styled-components' {
 			light_blue_2: string;
 			light_purple: string;
 			light_purple_2: string;
+			green: string;
+			blue: string;
+			purple: string;
 
 			white: string;
 			transparent: string;

@@ -32,10 +32,13 @@ export const defaultTheme: DefaultTheme = {
 		grey_light_3: '#667085',
 		light_red: '#FFD5CF',
 		light_red_2: '#FFF2F0',
+		green: '#008364',
 		light_green: '#B9EEE2',
 		light_green_2: '#E4F8F3',
+		blue: '#3FBDEF',
 		light_blue: '#BED1FF',
 		light_blue_2: '#EAF0FF',
+		purple: '#684FB4',
 		light_purple: '#E6D3FF',
 		light_purple_2: '#F7F0FF',
 

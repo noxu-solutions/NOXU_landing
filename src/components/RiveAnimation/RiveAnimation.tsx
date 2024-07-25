@@ -2,12 +2,14 @@ import { useRive, Layout, Fit, Alignment } from '@rive-app/react-canvas';
 import { RiveAnimationContainer } from './RiveAnimation.styles';
 import { useEffect, useRef } from 'react';
 import { useInView } from 'react-intersection-observer';
+import { DefaultThemeColorKey } from 'styled-components';
 
 export interface IconProps {
 	src: string;
+	color?: DefaultThemeColorKey
 }
 
-const RiveAnimation: React.FC<IconProps> = ({ src }) => {
+const RiveAnimation: React.FC<IconProps> = ({ src, color }) => {
 	const params = {
 		src,
 		autoplay: true,
@@ -25,7 +27,7 @@ const RiveAnimation: React.FC<IconProps> = ({ src }) => {
 	});
 
 	return (
-		<RiveAnimationContainer ref={ref}>{inView && <RiveComponent style={{ width: '100%', alignSelf: 'stretch', height: '100%' }} />}</RiveAnimationContainer>
+		<RiveAnimationContainer bgColor={color} ref={ref}>{inView && <RiveComponent style={{ width: '100%', alignSelf: 'stretch', height: '100%' }} />}</RiveAnimationContainer>
 	);
 };
 

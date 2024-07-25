@@ -19,6 +19,16 @@ export const FooterNav = styled(Col)`
 	gap: 48px;
 `;
 
+export const FooterSocialLinksWrapper = styled(Col)`
+	gap: 24px;
+
+	@media (min-width: ${({ theme }) => theme.breakpoint.mediumMin}px) {
+		justify-content: space-between;
+		align-items: center;
+		flex-direction: row;
+	}
+`;
+
 export const FooterLinksWrapper = styled(Col)`
 	gap: 24px;
 	flex-direction: column-reverse;
@@ -30,9 +40,14 @@ export const FooterLinksWrapper = styled(Col)`
 	}
 `;
 
-export const FooterLinks = styled(Row)`
-	justify-content: flex-start;
+export const FooterLinks = styled(Col)`
+	align-items: flex-start;
 	gap: 24px;
+
+	@media (min-width: ${({ theme }) => theme.breakpoint.mediumMin}px) {
+		flex-direction: row;
+		justify-content: flex-start;
+	}
 
 	@media (min-width: ${({ theme }) => theme.breakpoint.largeMin}px) {
 		justify-content: flex-end;
@@ -40,11 +55,12 @@ export const FooterLinks = styled(Row)`
 `;
 
 export const FooterSocialLinks = styled(Row)`
-	justify-content: flex-end;
 	gap: 24px;
+	justify-content: flex-start;
 
-	flex-wrap: wrap;
-	max-width: 130px;
+	@media (min-width: ${({ theme }) => theme.breakpoint.mediumMin}px) {
+		justify-content: flex-end;
+	}
 
 	@media (min-width: ${({ theme }) => theme.breakpoint.largeMin}px) {
 		flex-wrap: nowrap;
