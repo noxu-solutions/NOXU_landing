@@ -68,7 +68,6 @@ import {
 } from 'variables';
 import RiveAnimation from 'components/RiveAnimation/RiveAnimation';
 import Textarea from 'components/Textarea/Textarea';
-import StalePopup from 'components/StalePopup/StalePopup';
 import Popup from 'components/Popup/Popup';
 
 const Index = () => {
@@ -102,9 +101,7 @@ const Index = () => {
 			%0A Send NDA: ${checkboxValue ? 'Yes' : 'No'}
 			`;
 
-			const TOKEN = '7706663273:AAF-E-u4GWJBWsN0Wjapc78YHmNxfqGuPBI';
-			const CHAT_ID = '-4579676441';
-			const link = `https://api.telegram.org/bot${TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${text}`;
+			const link = `https://api.telegram.org/bot${process.env.TG_TOKEN}/sendMessage?chat_id=${process.env.TG_CHAT_ID}&text=${text}`;
 
 			let api = new XMLHttpRequest();
 			api.open('POST', link, true);
