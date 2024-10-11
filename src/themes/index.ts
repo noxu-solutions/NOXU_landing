@@ -44,6 +44,7 @@ export const defaultTheme: DefaultTheme = {
 
 		white: '#FFFFFF',
 		transparent: 'rgba(0,0,0,0)',
+		backdrop: 'rgba(0,0,0,0.4)',
 	},
 
 	transition: '0.3s',

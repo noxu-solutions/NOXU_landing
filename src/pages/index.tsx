@@ -67,14 +67,62 @@ import {
 	WORKS,
 } from 'variables';
 import RiveAnimation from 'components/RiveAnimation/RiveAnimation';
+import Textarea from 'components/Textarea/Textarea';
+import StalePopup from 'components/StalePopup/StalePopup';
+import Popup from 'components/Popup/Popup';
 
 const Index = () => {
 	const router = useRouter();
-	const [file, setFile] = useState<any>();
+	// const [file, setFile] = useState<any>();
 	const [isLoading, setIsLoading] = useState(false);
 	const [checkboxValue, setCheckboxValue] = useState(false);
 	const testimonialsSlider = useRef(null);
 	const expertiseSlider = useRef(null);
+
+	const [firstName, setFirstName] = useState('');
+	const [lastName, setLastName] = useState('');
+	const [email, setEmail] = useState('');
+	const [description, setDescription] = useState('');
+	const [openThanksPopup, setOpenThanksPopup] = useState(false);
+
+	const handleSubmit = (e) => {
+		try {
+			if (!firstName || !lastName || !email) {
+				return;
+			}
+
+			setIsLoading(true);
+			e.preventDefault();
+
+			const text = `
+			%0A New request: 
+			%0A Full Name: ${firstName + ' ' + lastName} 
+			%0A Email: ${email}
+			%0A Description: ${description || 'No description provided'}
+			%0A Send NDA: ${checkboxValue ? 'Yes' : 'No'}
+			`;
+
+			const TOKEN = '7706663273:AAF-E-u4GWJBWsN0Wjapc78YHmNxfqGuPBI';
+			const CHAT_ID = '-4579676441';
+			const link = `https://api.telegram.org/bot${TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${text}`;
+
+			let api = new XMLHttpRequest();
+			api.open('POST', link, true);
+			api.send();
+
+			setFirstName('');
+			setLastName('');
+			setEmail('');
+			setDescription('');
+			setCheckboxValue(false);
+
+			setOpenThanksPopup(true);
+		} catch (error) {
+			console.error(error);
+		} finally {
+			setIsLoading(false);
+		}
+	};
 
 	return (
 		<>
@@ -363,19 +411,49 @@ const Index = () => {
 			<CTA as='section' id='contact-form'>
 				<CTAContainer>
 					<CTAFormWrapper>
-						<CTAForm as='form'>
+						<CTAForm as='form' onSubmit={handleSubmit}>
 							<Title variant='h2'>
 								<span>Let{`'`}s grow </span> your business together
 							</Title>
 
 							<CTAInputs>
 								<CTANameInputs>
-									<Input label='First name' placeholder='First Name' name='firstName' type='firstName' onChange={() => {}} value={''} />
-									<Input label='Last name' placeholder='Last Name' name='lastName' type='lastName' onChange={() => {}} value={''} />
+									<Input
+										label='First name'
+										placeholder='First Name'
+										name='firstName'
+										type='firstName'
+										required
+										value={firstName}
+										onChange={(e) => setFirstName(e.target.value)}
+									/>
+									<Input
+										label='Last name'
+										placeholder='Last Name'
+										name='lastName'
+										type='lastName'
+										required
+										value={lastName}
+										onChange={(e) => setLastName(e.target.value)}
+									/>
 								</CTANameInputs>
-								<Input label='Email' placeholder='john.doe@company.com' name='email' type='email' onChange={() => {}} value={''} />
-								<Input label='Project Description' placeholder='Your summary' name='description' type='description' onChange={() => {}} value={''} />
-								<StaleInputFile
+								<Input
+									label='Email'
+									placeholder='john.doe@company.com'
+									name='email'
+									required
+									type='email'
+									value={email}
+									onChange={(e) => setEmail(e.target.value)}
+								/>
+								<Textarea
+									label='Project Description'
+									placeholder='Your summary'
+									name='description'
+									onChange={(e) => setDescription(e.target.value)}
+									value={description}
+								/>
+								{/* <StaleInputFile
 									accept='.xlsx'
 									files={file}
 									onChange={setFile}
@@ -388,14 +466,20 @@ const Index = () => {
 										</Row>
 									}
 									id='file'
-								/>
+								/> */}
 								<Checkbox label='Send me an NDA' checked={checkboxValue} onChange={() => setCheckboxValue((prev) => !prev)} />
 							</CTAInputs>
 
-							<Button>Send message</Button>
+							<Button disabled={isLoading}>Send message</Button>
+
 							<Row mt justifyContent='flex-start' flexWrap='wrap' gap='6px'>
 								<Paragraph>By submitting this form you agree to NOXU Solutions</Paragraph>
-								<Link href='#' style={{ width: 'fit-content' }} display='inline' color='red'>
+								<Link
+									target='_blank'
+									href='https://docs.google.com/document/d/1HlvBqB3WrWN1M94AVKWDnhJs7mwY1MvDN-RCcZQrmFw/edit?usp=sharing'
+									style={{ width: 'fit-content' }}
+									display='inline'
+									color='red'>
 									Privacy Policy
 								</Link>
 							</Row>
@@ -449,7 +533,10 @@ const Index = () => {
 								<Link href='#' color='grey_light_3'>
 									Cookie Policy
 								</Link>
-								<Link href='#' color='grey_light_3'>
+								<Link
+									target='_blank'
+									href='https://docs.google.com/document/d/1HlvBqB3WrWN1M94AVKWDnhJs7mwY1MvDN-RCcZQrmFw/edit?usp=sharing'
+									color='grey_light_3'>
 									Privacy Policy
 								</Link>
 								<Link href='#' color='grey_light_3'>
@@ -460,6 +547,20 @@ const Index = () => {
 					</FooterNav>
 				</FooterContainer>
 			</Footer>
+
+			{openThanksPopup && (
+				<Popup width='347px' HeaderContent={<Title variant='h4'>Thank you!</Title>} onClose={() => setOpenThanksPopup(false)}>
+					<Paragraph mb variant='bold'>
+						Your request was successfully sent.
+					</Paragraph>
+
+					<Paragraph>We will get back to you within one business day.</Paragraph>
+
+					<Button mt mtValue='32px' onClick={() => setOpenThanksPopup(false)}>
+						Close
+					</Button>
+				</Popup>
+			)}
 		</>
 	);
 };
