@@ -101,7 +101,7 @@ const Index = () => {
 			%0A Send NDA: ${checkboxValue ? 'Yes' : 'No'}
 			`;
 
-			const link = `https://api.telegram.org/bot${process.env.TG_TOKEN}/sendMessage?chat_id=${process.env.TG_CHAT_ID}&text=${text}`;
+			const link = `https://api.telegram.org/bot${process.env.NEXT_PUBLIC_TG_TOKEN}/sendMessage?chat_id=${process.env.NEXT_PUBLIC_TG_CHAT_ID}&text=${text}`;
 
 			let api = new XMLHttpRequest();
 			api.open('POST', link, true);
